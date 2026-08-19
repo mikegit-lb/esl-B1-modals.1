@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive ESL lesson and full exam worksheet for English modal verbs.">
+  <title>Modal Verbs Mastery Hub</title>
+  <style>
+    :root {
+      --ink: #17213f;
+      --ink-soft: #293454;
+      --muted: #5d6782;
+      --paper: #f5f7fc;
+      --surface: #fff;
+      --surface-soft: #eef2ff;
+      --line: #dbe2f0;
+      --indigo: #4f46e5;
+      --indigo-dark: #3730a3;
+      --violet: #7c3aed;
+      --teal: #0f766e;
+      --green: #047857;
+      --green-soft: #dcfce7;
+      --red: #b42318;
+      --red-soft: #fee4e2;
+      --gold: #a16207;
+      --gold-soft: #fef3c7;
+      --shadow-sm: 0 8px 24px rgba(31, 41, 84, .08);
+      --shadow-md: 0 18px 45px rgba(31, 41, 84, .12);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 30px;
+      --display: Georgia, "Times New Roman", serif;
+      --body: "Segoe UI", Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(99, 102, 241, .12), transparent 25rem),
+        radial-gradient(circle at 95% 18%, rgba(20, 184, 166, .1), transparent 23rem),
+        var(--paper);
+      font-family: var(--body);
+      line-height: 1.55;
+    }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .65; }
+    :focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+    .skip-link {
+      position: fixed; left: 1rem; top: -4rem; z-index: 100;
+      padding: .7rem 1rem; color: #fff; background: var(--ink);
+      border-radius: 10px; transition: top .2s ease;
+    }
+    .skip-link:focus { top: 1rem; }
+    .app-shell { width: min(1220px, calc(100% - 2rem)); margin: 0 auto; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: 1.2rem 0 1rem; font-family: var(--display); font-size: clamp(3.1rem, 8vw, 6.7rem); letter-spacing: -.065em; line-height: .93; }
+    h1 em { color: var(--indigo); font-style: normal; }
+    .eyebrow, .section-kicker, .stage-label, .micro-label {
+      margin: 0; color: var(--indigo-dark); font-size: .74rem; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase;
+    }
+    .eyebrow { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; }
+    .eyebrow-badge, .eyebrow-status { display: inline-flex; align-items: center; min-height: 28px; padding: .3rem .7rem; border-radius: 999px; }
+    .eyebrow-badge { color: var(--indigo-dark); background: #e0e7ff; }
+    .eyebrow-status { color: var(--teal); background: #ccfbf1; }
+    .live-dot { width: 7px; height: 7px; margin-right: .35rem; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(15, 118, 110, .12); }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: 4rem; align-items: center; min-height: 520px; padding: 4rem 0 3rem; }
+    .hero-lede { max-width: 650px; margin-bottom: 1.7rem; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.2rem); }
+    .hero-actions, .button-row, .practice-controls { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+    .primary-button, .secondary-button, .quiet-button, .icon-button {
+      display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+      min-height: 44px; border: 1px solid transparent; border-radius: 12px;
+      font-weight: 750; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .primary-button { padding: .72rem 1.1rem; color: #fff; background: var(--indigo); box-shadow: 0 10px 20px rgba(79, 70, 229, .23); }
+    .primary-button:hover { background: var(--indigo-dark); box-shadow: 0 14px 24px rgba(79, 70, 229, .3); transform: translateY(-2px); }
+    .secondary-button { padding: .7rem 1rem; color: var(--indigo-dark); background: #fff; border-color: var(--line); }
+    .secondary-button:hover, .quiet-button:hover, .icon-button:hover { transform: translateY(-2px); }
+    .quiet-button { padding: .7rem 1rem; color: var(--muted); background: transparent; }
+    .icon-button { min-height: 38px; padding: .5rem .75rem; color: var(--indigo-dark); background: #eef2ff; border-color: #c7d2fe; font-size: .86rem; }
+    .hero-panel { position: relative; overflow: hidden; padding: 1.2rem; border: 1px solid rgba(255,255,255,.75); border-radius: var(--radius-lg); background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(238,242,255,.92)); box-shadow: var(--shadow-md); }
+    .hero-panel::after { position: absolute; right: -70px; bottom: -100px; width: 220px; height: 220px; border: 32px solid rgba(99,102,241,.11); border-radius: 50%; content: ""; }
+    .orbit { position: relative; display: grid; place-items: center; min-height: 255px; margin-bottom: 1rem; overflow: hidden; border-radius: 22px; background: linear-gradient(135deg, rgba(79,70,229,.95), rgba(55,48,163,.92)); }
+    .orbit::before, .orbit::after { position: absolute; width: 210px; height: 210px; border: 1px solid rgba(255,255,255,.27); border-radius: 50%; content: ""; }
+    .orbit::after { width: 300px; height: 300px; border-color: rgba(255,255,255,.14); }
+    .orbit-center { z-index: 1; display: grid; place-items: center; width: 100px; height: 100px; border: 8px solid rgba(255,255,255,.16); border-radius: 50%; color: #fff; background: rgba(255,255,255,.13); text-align: center; box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 16px 35px rgba(22,24,74,.24); }
+    .orbit-center strong { display: block; font-family: var(--display); font-size: 1.4rem; }
+    .orbit-center span { display: block; color: #c7d2fe; font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .orbit-word { position: absolute; z-index: 2; padding: .45rem .7rem; color: var(--ink); background: #fff; border: 2px solid rgba(255,255,255,.55); border-radius: 10px; box-shadow: 0 8px 16px rgba(22,24,74,.18); font-family: var(--display); font-size: 1rem; font-weight: 700; transform: rotate(var(--tilt)); }
+    .orbit-word:nth-child(1) { top: 18%; left: 12%; --tilt: -8deg; }
+    .orbit-word:nth-child(2) { top: 15%; right: 12%; --tilt: 7deg; }
+    .orbit-word:nth-child(3) { bottom: 16%; left: 17%; --tilt: 6deg; }
+    .orbit-word:nth-child(4) { right: 14%; bottom: 17%; --tilt: -6deg; }
+    .progress-card { position: relative; z-index: 1; padding: 1.1rem 1.15rem; border: 1px solid var(--line); border-radius: 17px; background: rgba(255,255,255,.85); }
+    .progress-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-bottom: .6rem; }
+    .progress-heading span { color: var(--muted); font-size: .83rem; font-weight: 700; }
+    .progress-heading strong { color: var(--ink); font-size: 1.05rem; }
+    .progress-track { height: 10px; overflow: hidden; border-radius: 999px; background: #e4e7f5; }
+    .progress-track span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--indigo), var(--teal)); transition: width .45s ease; }
+    .progress-caption { margin: .7rem 0 0; color: var(--muted); font-size: .8rem; }
+    .module-nav { position: sticky; top: .65rem; z-index: 20; display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin: .25rem 0 2.3rem; padding: .55rem; border: 1px solid rgba(255,255,255,.85); border-radius: 18px; background: rgba(255,255,255,.82); box-shadow: var(--shadow-sm); backdrop-filter: blur(16px); }
+    .module-tab { display: grid; grid-template-columns: auto 1fr auto; gap: .7rem; align-items: center; min-width: 0; padding: .85rem 1rem; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 13px; text-align: left; transition: background .2s ease, color .2s ease; }
+    .module-tab:hover { color: var(--ink); background: #f5f7ff; }
+    .module-tab[aria-selected="true"] { color: var(--indigo-dark); background: #e9eaff; border-color: #c7d2fe; box-shadow: 0 6px 15px rgba(79,70,229,.09); }
+    .tab-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: #fff; font-size: 1.1rem; }
+    .tab-copy { min-width: 0; }
+    .tab-copy strong, .tab-copy small { display: block; }
+    .tab-copy strong { overflow: hidden; color: currentColor; font-size: .92rem; text-overflow: ellipsis; white-space: nowrap; }
+    .tab-copy small { margin-top: .1rem; color: var(--muted); font-size: .72rem; }
+    .tab-state { color: var(--muted); font-size: .72rem; font-weight: 800; white-space: nowrap; }
+    .module-panel { animation: panel-in .4s ease both; }
+    .module-panel[hidden] { display: none; }
+    @keyframes panel-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .module-intro { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 1.7rem; }
+    .section-kicker { margin-bottom: .45rem; }
+    .module-intro h2 { max-width: 740px; margin-bottom: .6rem; font-family: var(--display); font-size: clamp(2.2rem,5vw,4.1rem); letter-spacing: -.045em; line-height: .98; }
+    .module-intro p:not(.section-kicker) { max-width: 720px; margin-bottom: 0; color: var(--muted); }
+    .mini-meter { flex: 0 0 auto; min-width: 145px; padding: .85rem 1rem; border-left: 3px solid var(--indigo); background: rgba(255,255,255,.64); }
+    .mini-meter span, .mini-meter strong { display: block; }
+    .mini-meter span { color: var(--muted); font-size: .73rem; font-weight: 700; }
+    .mini-meter strong { margin-top: .2rem; color: var(--ink); font-size: 1.15rem; }
+    .rule-callout { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.6rem; padding: 1rem 1.1rem; border: 1px solid #c7d2fe; border-radius: var(--radius-md); background: linear-gradient(100deg,#eef2ff,#f5f3ff); }
+    .rule-number { display: grid; flex: 0 0 auto; place-items: center; width: 44px; height: 44px; color: #fff; background: var(--indigo); border-radius: 13px; font-family: var(--display); font-size: 1.3rem; }
+    .rule-callout p { margin: .12rem 0 0; color: var(--muted); font-size: .9rem; }
+    code { padding: .15rem .35rem; color: var(--indigo-dark); background: #fff; border-radius: 5px; font-weight: 800; }
+    .rule-callout .icon-button { margin-left: auto; white-space: nowrap; }
+    .concept-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .concept-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-sm); }
+    .concept-trigger { display: block; width: 100%; padding: 1.1rem; color: var(--ink); background: transparent; border: 0; text-align: left; }
+    .concept-topline { display: flex; justify-content: space-between; gap: .75rem; align-items: start; margin-bottom: 1rem; }
+    .concept-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: var(--surface-soft); font-size: 1.35rem; }
+    .chevron { color: var(--muted); font-size: 1.3rem; transition: transform .2s ease; }
+    .concept-card.is-open .chevron { transform: rotate(180deg); }
+    .concept-card h3 { margin-bottom: .3rem; font-size: 1.05rem; line-height: 1.2; }
+    .phrase-row { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; }
+    .phrase-chip, .tag { display: inline-flex; align-items: center; padding: .25rem .52rem; border-radius: 999px; font-size: .72rem; font-weight: 800; }
+    .phrase-chip { color: var(--indigo-dark); background: #e0e7ff; }
+    .concept-details { display: grid; grid-template-rows: 0fr; padding: 0 1.1rem; color: var(--muted); transition: grid-template-rows .25s ease, padding .25s ease; }
+    .concept-details > div { overflow: hidden; }
+    .concept-card.is-open .concept-details { grid-template-rows: 1fr; padding: 0 1.1rem 1.1rem; }
+    .concept-details p { margin: 0; font-size: .86rem; }
+    .example-line { margin-top: .65rem !important; padding: .7rem; color: var(--ink-soft); background: #f8fafc; border-left: 3px solid var(--teal); border-radius: 0 8px 8px 0; font-style: italic; }
+    .practice-layout, .speaking-layout { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(260px,.65fr); gap: 1rem; align-items: start; }
+    .practice-card, .side-card, .scenario-card, .coach-card, .notes-panel, .exam-shell { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-sm); }
+    .practice-card, .scenario-card, .coach-card, .notes-panel { padding: 1.25rem; }
+    .card-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: start; margin-bottom: 1.2rem; }
+    .card-heading h3 { margin-bottom: .25rem; font-size: 1.25rem; }
+    .card-heading p { margin: 0; color: var(--muted); font-size: .87rem; }
+    .score-pill { flex: 0 0 auto; padding: .4rem .65rem; color: var(--indigo-dark); background: #eef2ff; border-radius: 999px; font-size: .75rem; font-weight: 800; white-space: nowrap; }
+    .question-list { display: grid; gap: .8rem; }
+    .question-card { min-width: 0; margin: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 15px; background: #fbfcff; }
+    .question-card[data-state="correct"] { border-color: #86efac; background: #f0fdf4; }
+    .question-card[data-state="incorrect"] { border-color: #fca5a5; background: #fff7f6; }
+    .question-card legend { width: 100%; padding: 0; color: var(--ink); font-size: .96rem; font-weight: 700; }
+    .q-number { display: inline-grid; place-items: center; width: 25px; height: 25px; margin-right: .35rem; color: var(--indigo-dark); background: #e0e7ff; border-radius: 8px; font-size: .72rem; }
+    .option-grid { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+    .answer-option { min-height: 38px; padding: .45rem .75rem; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 9px; font-size: .86rem; font-weight: 700; }
+    .answer-option:hover { border-color: #a5b4fc; transform: translateY(-1px); }
+    .answer-option.is-correct { color: var(--green); background: var(--green-soft); border-color: #86efac; }
+    .answer-option.is-wrong { color: var(--red); background: var(--red-soft); border-color: #fca5a5; }
+    .question-feedback { margin: .75rem 0 0; padding: .65rem .75rem; border-radius: 9px; font-size: .82rem; }
+    .feedback-good { color: var(--green); background: var(--green-soft); }
+    .feedback-bad { color: var(--red); background: var(--red-soft); }
+    .practice-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem; align-items: center; margin-top: 1.1rem; }
+    .practice-footer small { color: var(--muted); }
+    .side-card { padding: 1.2rem; background: #17213f; color: #fff; }
+    .side-card h3, .coach-card h3 { margin-bottom: .6rem; font-family: var(--display); font-size: 1.55rem; }
+    .side-card h3 { color: #fff; }
+    .side-card p { color: #c7d2fe; font-size: .88rem; }
+    .formula-box { margin: 1rem 0; padding: .85rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 12px; text-align: center; }
+    .formula-box code { color: #312e81; background: #eef2ff; font-size: .93rem; }
+    .rule-list { display: grid; gap: .6rem; margin: 0; padding: 0; list-style: none; }
+    .rule-list li { display: flex; gap: .55rem; color: #e0e7ff; font-size: .82rem; }
+    .rule-list li::before { color: #5eead4; content: "✦"; }
+    .scenario-picker { display: grid; gap: .55rem; margin-bottom: 1rem; }
+    .scenario-button { display: grid; grid-template-columns: 40px 1fr auto; gap: .65rem; align-items: center; padding: .7rem; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 13px; text-align: left; }
+    .scenario-button:hover { border-color: #a5b4fc; transform: translateX(2px); }
+    .scenario-button[aria-selected="true"] { color: var(--indigo-dark); background: #eef2ff; border-color: #a5b4fc; }
+    .scenario-index { display: grid; place-items: center; width: 34px; height: 34px; color: var(--indigo-dark); background: #e0e7ff; border-radius: 10px; font-size: .75rem; font-weight: 850; }
+    .scenario-button strong, .scenario-button small { display: block; }
+    .scenario-button strong { font-size: .88rem; }
+    .scenario-button small { margin-top: .1rem; color: var(--muted); font-size: .72rem; }
+    .scenario-check { color: var(--green); font-size: .8rem; font-weight: 850; }
+    .scenario-card { min-height: 510px; }
+    .scenario-header { margin-bottom: 1.2rem; }
+    .scenario-header h3 { margin: .35rem 0 .45rem; font-family: var(--display); font-size: clamp(1.8rem,4vw,2.7rem); letter-spacing: -.035em; line-height: 1; }
+    .scenario-header p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .prompt-card { margin-bottom: 1rem; padding: 1rem; border: 1px solid #c7d2fe; border-radius: 16px; background: linear-gradient(135deg,#eef2ff,#f5f3ff); }
+    .prompt-meta { display: flex; justify-content: space-between; gap: 1rem; align-items: center; margin-bottom: .8rem; }
+    .prompt-meta span { color: var(--indigo-dark); font-size: .72rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .audio-button { min-height: 34px; padding: .35rem .65rem; color: var(--indigo-dark); background: #fff; border: 1px solid #c7d2fe; border-radius: 9px; font-size: .76rem; font-weight: 800; }
+    .target-sentence { margin: 0; color: var(--ink); font-family: var(--display); font-size: clamp(1.25rem,2.5vw,1.65rem); line-height: 1.35; }
+    .exercise-nav { display: grid; grid-template-columns: auto 1fr auto; gap: .7rem; align-items: center; margin: 1rem 0; padding: .7rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+    .exercise-nav-button { min-height: 36px; padding: .4rem .65rem; color: var(--indigo-dark); background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 9px; font-size: .77rem; font-weight: 800; }
+    .exercise-nav-button:disabled { color: var(--muted); background: #f8fafc; border-color: var(--line); }
+    .exercise-progress { min-width: 0; text-align: center; }
+    .exercise-counter { display: block; color: var(--ink-soft); font-size: .78rem; font-weight: 850; }
+    .exercise-dots { display: flex; justify-content: center; gap: .32rem; margin-top: .4rem; }
+    .exercise-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: #cbd5e1; }
+    .exercise-dot.is-current { background: var(--indigo); box-shadow: 0 0 0 3px #e0e7ff; }
+    .exercise-dot.is-complete { background: var(--teal); }
+    .modal-stress { padding: .04em .18em; color: var(--indigo-dark); background: #c7d2fe; border-radius: 5px; text-decoration: underline; text-decoration-color: var(--violet); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+    .recognition-box { margin-top: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: 15px; background: #fbfcff; }
+    .recognition-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: center; margin-bottom: .65rem; }
+    .recognition-heading strong { font-size: .9rem; }
+    .mic-status { display: block; color: var(--muted); font-size: .76rem; }
+    .accuracy-label { padding: .3rem .5rem; color: var(--teal); background: #ccfbf1; border-radius: 999px; font-size: .76rem; font-weight: 850; }
+    .transcript { min-height: 48px; margin: 0; padding: .75rem; color: var(--muted); background: #fff; border: 1px dashed var(--line); border-radius: 9px; font-size: .86rem; }
+    .recognition-feedback { margin: .7rem 0 0; color: var(--muted); font-size: .83rem; }
+    .coach-tip { margin: 1rem 0 0; padding: .75rem .85rem; color: var(--gold); background: var(--gold-soft); border-radius: 10px; font-size: .82rem; }
+    .coach-tip strong { margin-right: .35rem; }
+    .coach-card { padding: 1.2rem; }
+    .coach-card p { color: var(--muted); font-size: .87rem; }
+    .speech-steps { display: grid; gap: .7rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+    .speech-steps li { display: grid; grid-template-columns: 28px 1fr; gap: .55rem; align-items: start; color: var(--ink-soft); font-size: .84rem; }
+    .speech-steps span { display: grid; place-items: center; width: 26px; height: 26px; color: var(--indigo-dark); background: #e0e7ff; border-radius: 8px; font-size: .72rem; font-weight: 850; }
+    .support-note { margin-top: 1rem; padding: .75rem; color: var(--muted); background: #f8fafc; border-radius: 10px; font-size: .76rem; }
+    .vocab-toolbar { display: grid; grid-template-columns: minmax(0,1fr) 240px auto; gap: .75rem; align-items: end; margin-bottom: 1.3rem; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-sm); }
+    .field-label { display: block; margin-bottom: .35rem; color: var(--muted); font-size: .75rem; font-weight: 800; }
+    .text-input, .select-input, .notes-textarea, .exam-input { width: 100%; min-height: 44px; padding: .65rem .75rem; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 10px; }
+    .text-input:focus, .select-input:focus, .notes-textarea:focus, .exam-input:focus { border-color: var(--indigo); outline: 3px solid rgba(79,70,229,.15); }
+    .vocab-count { color: var(--muted); font-size: .82rem; font-weight: 750; white-space: nowrap; }
+    .flashcard-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+    .flashcard { position: relative; display: block; width: 100%; min-height: 285px; padding: 0; color: var(--ink); background: transparent; border: 0; perspective: 1000px; text-align: left; }
+    .flashcard-inner { position: relative; width: 100%; height: 100%; min-height: 285px; transform-style: preserve-3d; transition: transform .55s ease; }
+    .flashcard.is-flipped .flashcard-inner { transform: rotateY(180deg); }
+    .flashcard-face { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 1.15rem; overflow: hidden; backface-visibility: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-sm); }
+    .flashcard-front { justify-content: space-between; background: linear-gradient(145deg,rgba(255,255,255,.96),rgba(238,242,255,.96)); }
+    .flashcard-back { transform: rotateY(180deg); background: #17213f; border-color: #293454; color: #fff; }
+    .flashcard-front::after { position: absolute; right: -30px; bottom: -34px; width: 120px; height: 120px; border: 18px solid rgba(79,70,229,.11); border-radius: 50%; content: ""; }
+    .flashcard-top { display: flex; justify-content: space-between; gap: .5rem; align-items: start; }
+    .tag { color: var(--teal); background: #ccfbf1; }
+    .formality { color: var(--muted); font-size: .7rem; font-weight: 800; text-transform: uppercase; }
+    .flashcard-title { position: relative; z-index: 1; max-width: 250px; margin: auto 0; font-family: var(--display); font-size: clamp(1.65rem,3vw,2.2rem); letter-spacing: -.04em; line-height: 1; }
+    .flip-hint { position: relative; z-index: 1; color: var(--muted); font-size: .78rem; font-weight: 750; }
+    .flashcard-back .flashcard-title { margin: .35rem 0 .55rem; color: #fff; font-size: 1.55rem; }
+    .flashcard-back p, .flashcard-back li { color: #dbeafe; font-size: .8rem; }
+    .flashcard-back p { margin-bottom: .55rem; }
+    .flashcard-back ul { margin: .15rem 0 0; padding-left: 1rem; }
+    .flashcard-back li + li { margin-top: .25rem; }
+    .empty-state { grid-column: 1 / -1; padding: 2rem; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius-md); background: #fff; text-align: center; }
+    .flashcard-help { margin-top: 1rem; color: var(--muted); font-size: .8rem; }
+
+    /* Exam worksheet */
+    .exam-section { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--line); scroll-margin-top: 1.2rem; }
+    .exam-intro { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 1.4rem; }
+    .exam-intro h2 { max-width: 760px; margin: .35rem 0 .55rem; font-family: var(--display); font-size: clamp(2.3rem,5vw,4.5rem); letter-spacing: -.05em; line-height: .96; }
+    .exam-intro p:not(.section-kicker) { max-width: 720px; margin-bottom: 0; color: var(--muted); }
+    .exam-meta { display: grid; grid-template-columns: repeat(2,1fr); min-width: 235px; border: 1px solid var(--line); border-radius: 15px; overflow: hidden; background: #fff; box-shadow: var(--shadow-sm); }
+    .exam-meta div { padding: .8rem; }
+    .exam-meta div + div { border-left: 1px solid var(--line); }
+    .exam-meta span, .exam-meta strong { display: block; }
+    .exam-meta span { color: var(--muted); font-size: .7rem; font-weight: 800; text-transform: uppercase; }
+    .exam-meta strong { margin-top: .15rem; font-size: 1.1rem; }
+    .exam-shell { overflow: hidden; }
+    .exam-toolbar { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: 1rem 1.2rem; color: #fff; background: #17213f; }
+    .exam-toolbar strong { font-size: .95rem; }
+    .exam-toolbar small { display: block; margin-top: .15rem; color: #c7d2fe; }
+    .exam-clock { min-width: 92px; padding: .45rem .7rem; color: #17213f; background: #fef3c7; border-radius: 10px; font-size: 1.1rem; font-weight: 900; text-align: center; }
+    .exam-clock.is-danger { color: #fff; background: var(--red); }
+    .exam-instructions { display: grid; grid-template-columns: 1.4fr .6fr; gap: 1rem; margin: 1.2rem; padding: 1rem; border: 1px solid #c7d2fe; border-radius: 15px; background: #eef2ff; }
+    .exam-instructions h3 { margin-bottom: .35rem; font-size: 1rem; }
+    .exam-instructions p { margin: 0; color: var(--muted); font-size: .83rem; }
+    .exam-instructions ul { margin: 0; padding-left: 1.1rem; color: var(--ink-soft); font-size: .8rem; }
+    .exam-body { display: grid; gap: 1rem; padding: 0 1.2rem 1.2rem; }
+    .exam-part { padding: 1.1rem; border: 1px solid var(--line); border-radius: 15px; background: #fbfcff; }
+    .exam-part-header { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-bottom: .9rem; padding-bottom: .65rem; border-bottom: 1px solid var(--line); }
+    .exam-part-header h3 { margin: 0; font-size: 1.08rem; }
+    .exam-part-header span { color: var(--muted); font-size: .75rem; font-weight: 800; white-space: nowrap; }
+    .exam-question-list { display: grid; gap: .8rem; }
+    .exam-question { margin: 0; padding: .8rem; border: 1px solid transparent; border-radius: 11px; }
+    .exam-question:nth-child(even) { background: #fff; border-color: #edf0f7; }
+    .exam-question legend, .exam-prompt { width: 100%; padding: 0; font-size: .88rem; font-weight: 700; }
+    .exam-option-grid { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .55rem; }
+    .exam-option { min-height: 36px; padding: .38rem .65rem; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 8px; font-size: .8rem; font-weight: 700; }
+    .exam-option.is-selected { color: var(--indigo-dark); background: #e0e7ff; border-color: #818cf8; }
+    .exam-question.is-correct { background: var(--green-soft); border-color: #86efac; }
+    .exam-question.is-incorrect { background: var(--red-soft); border-color: #fca5a5; }
+    .exam-input { min-height: 38px; margin-top: .55rem; font-size: .84rem; }
+    .exam-input.is-correct { border-color: #22c55e; background: #f0fdf4; }
+    .exam-input.is-incorrect { border-color: #ef4444; background: #fff7f6; }
+    .exam-feedback { display: none; margin: .5rem 0 0; color: var(--muted); font-size: .78rem; }
+    .exam-feedback.is-visible { display: block; }
+    .exam-review { display: grid; gap: .55rem; margin: 1rem 0 0; padding: .9rem; border: 1px dashed var(--line); border-radius: 10px; background: #fff; }
+    .exam-review p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .exam-review strong { color: var(--ink); }
+    .writing-box { display: grid; gap: .65rem; }
+    .writing-box textarea { min-height: 150px; resize: vertical; }
+    .rubric-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .55rem; margin-top: .8rem; }
+    .rubric-item { padding: .65rem; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 9px; font-size: .77rem; }
+    .rubric-item strong { display: block; margin-bottom: .2rem; }
+    .exam-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem; align-items: center; padding: 1rem 1.2rem 1.2rem; }
+    .exam-result { min-height: 1.35rem; color: var(--muted); font-size: .84rem; font-weight: 700; }
+    .exam-result strong { color: var(--indigo-dark); }
+    .exam-key { display: none; margin: 0 1.2rem 1.2rem; padding: 1rem; color: var(--green); background: var(--green-soft); border: 1px solid #86efac; border-radius: 12px; font-size: .82rem; }
+    .exam-key.is-visible { display: block; }
+    .exam-key ol { margin: .5rem 0 0; padding-left: 1.2rem; }
+    .exam-key li + li { margin-top: .2rem; }
+    .notes-panel { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 1rem; align-items: end; margin: 2.2rem 0; background: linear-gradient(135deg,#fff,#eef2ff); }
+    .notes-panel h2 { margin-bottom: .3rem; font-family: var(--display); font-size: 1.7rem; }
+    .notes-panel p { margin-bottom: .8rem; color: var(--muted); font-size: .84rem; }
+    .notes-textarea { min-height: 100px; resize: vertical; }
+    .notes-actions { display: grid; gap: .55rem; min-width: 150px; }
+    .note-status { min-height: 1.2em; color: var(--green); font-size: .75rem; font-weight: 750; }
+    .site-footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.3rem 0 2.5rem; color: var(--muted); font-size: .78rem; }
+    .site-footer p { margin: 0; }
+    .toast { position: fixed; right: 1rem; bottom: 1rem; z-index: 50; max-width: min(360px,calc(100% - 2rem)); padding: .8rem 1rem; color: #fff; background: var(--ink); border-radius: 12px; box-shadow: var(--shadow-md); opacity: 0; pointer-events: none; transform: translateY(10px); transition: opacity .2s ease, transform .2s ease; }
+    .toast.is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1000px) {
+      .hero { gap: 2rem; }
+      .concept-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .flashcard-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .app-shell { width: min(100% - 1.1rem,680px); }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 2.4rem; }
+      h1 { font-size: clamp(3rem,15vw,5.4rem); }
+      .hero-panel { max-width: 550px; }
+      .module-nav { grid-template-columns: 1fr; }
+      .module-intro, .exam-intro { display: block; }
+      .mini-meter { display: inline-block; margin-top: 1rem; }
+      .practice-layout, .speaking-layout { grid-template-columns: 1fr; }
+      .vocab-toolbar { grid-template-columns: 1fr; }
+      .vocab-count { justify-self: start; }
+      .exam-instructions { grid-template-columns: 1fr; }
+      .notes-panel { grid-template-columns: 1fr; }
+      .notes-actions { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .concept-grid, .flashcard-grid { grid-template-columns: 1fr; }
+      .rule-callout { align-items: start; }
+      .rule-callout .icon-button { margin-top: .15rem; }
+      .prompt-meta, .recognition-heading, .practice-footer, .exam-toolbar, .site-footer { align-items: flex-start; flex-direction: column; }
+      .rubric-grid { grid-template-columns: 1fr; }
+      .flashcard, .flashcard-inner { min-height: 260px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app-shell">
+    <header class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">
+          <span class="eyebrow-badge">B1 · Practical English</span>
+          <span class="eyebrow-status"><span class="live-dot" aria-hidden="true"></span>Self-paced</span>
+        </p>
+        <h1 id="page-title">Modal Verbs <em>Mastery Hub</em></h1>
+        <p class="hero-lede">Build sharper grammar, more confident speaking, and natural vocabulary by putting modal verbs into real decisions, requests, advice, and deductions.</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#modules">Start practice <span aria-hidden="true">↘</span></a>
+          <a class="secondary-button" href="#exam">Jump to final exam</a>
+          <button class="quiet-button" id="resetProgress" type="button">Reset progress</button>
+        </div>
+      </div>
+
+      <div class="hero-panel" aria-label="Overall course progress">
+        <div class="orbit" aria-hidden="true">
+          <span class="orbit-word">can</span><span class="orbit-word">must</span><span class="orbit-word">might</span><span class="orbit-word">should</span>
+          <div class="orbit-center"><div><strong>MODAL</strong><span>verb power</span></div></div>
+        </div>
+        <div class="progress-card">
+          <div class="progress-heading"><span>Overall progress</span><strong id="overallProgressText">0/3 Modules Completed</strong></div>
+          <div class="progress-track" role="progressbar" aria-label="Overall module progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span id="overallProgressBar"></span></div>
+          <p class="progress-caption">Finish each pillar to complete your modal verb toolkit.</p>
+        </div>
+      </div>
+    </header>
+
+    <nav class="module-nav" id="modules" aria-label="Learning modules" role="tablist">
+      <button class="module-tab" id="grammar-tab" type="button" role="tab" aria-selected="true" aria-controls="grammar-panel" data-tab="grammar"><span class="tab-icon" aria-hidden="true">📘</span><span class="tab-copy"><strong>Grammar Lab</strong><small>Rules &amp; accuracy</small></span><span class="tab-state" id="grammar-state">Start</span></button>
+      <button class="module-tab" id="speaking-tab" type="button" role="tab" aria-selected="false" aria-controls="speaking-panel" data-tab="speaking"><span class="tab-icon" aria-hidden="true">🗣️</span><span class="tab-copy"><strong>Speaking Simulator</strong><small>Requests &amp; deductions</small></span><span class="tab-state" id="speaking-state">Start</span></button>
+      <button class="module-tab" id="vocabulary-tab" type="button" role="tab" aria-selected="false" aria-controls="vocabulary-panel" data-tab="vocabulary"><span class="tab-icon" aria-hidden="true">🗂️</span><span class="tab-copy"><strong>Vocabulary in Context</strong><small>Collocations &amp; nuance</small></span><span class="tab-state" id="vocabulary-state">Explore</span></button>
+    </nav>
+
+    <main id="main">
+      <section class="module-panel" id="grammar-panel" role="tabpanel" aria-labelledby="grammar-tab" tabindex="-1">
+        <div class="module-intro"><div><p class="section-kicker">Module 01 / Structure &amp; meaning</p><h2>Make the modal do the work.</h2><p>Modal verbs show attitude: ability, permission, duty, possibility, and conclusions. Explore the four families, then test your choices.</p></div><div class="mini-meter"><span>Quiz status</span><strong id="grammarProgress">0/5 answered</strong></div></div>
+        <div class="rule-callout"><div class="rule-number" aria-hidden="true">01</div><div><strong>The fast rule</strong><p>After most modals, use the base verb: <code>modal + verb</code>.</p></div><button class="icon-button" id="copyRule" type="button">Copy rule</button></div>
+
+        <div class="concept-grid">
+          <article class="concept-card"><button class="concept-trigger" type="button" aria-expanded="false" data-concept-toggle="ability-details"><span class="concept-topline"><span class="concept-icon" aria-hidden="true">✋</span><span class="chevron" aria-hidden="true">⌄</span></span><h3>Ability &amp; Permission</h3><span class="phrase-row"><span class="phrase-chip">can</span><span class="phrase-chip">could</span><span class="phrase-chip">may</span></span></button><div class="concept-details" id="ability-details"><div><p><strong>Can</strong> describes present ability or informal permission. <strong>Could</strong> is useful for past ability and polite requests. <strong>May</strong> is more formal permission.</p><p class="example-line">Could I borrow your notes?</p></div></div></article>
+          <article class="concept-card"><button class="concept-trigger" type="button" aria-expanded="false" data-concept-toggle="obligation-details"><span class="concept-topline"><span class="concept-icon" aria-hidden="true">⚖️</span><span class="chevron" aria-hidden="true">⌄</span></span><h3>Obligation &amp; Necessity</h3><span class="phrase-row"><span class="phrase-chip">must</span><span class="phrase-chip">have to</span><span class="phrase-chip">should</span></span></button><div class="concept-details" id="obligation-details"><div><p><strong>Must</strong> often expresses the speaker's strong rule. <strong>Have to</strong> usually points to an external rule. <strong>Should</strong> and <strong>ought to</strong> give advice.</p><p class="example-line">You must wear a helmet here.</p></div></div></article>
+          <article class="concept-card"><button class="concept-trigger" type="button" aria-expanded="false" data-concept-toggle="probability-details"><span class="concept-topline"><span class="concept-icon" aria-hidden="true">🔎</span><span class="chevron" aria-hidden="true">⌄</span></span><h3>Probability &amp; Deduction</h3><span class="phrase-row"><span class="phrase-chip">might</span><span class="phrase-chip">must</span><span class="phrase-chip">can't</span></span></button><div class="concept-details" id="probability-details"><div><p><strong>Might</strong> shows a weak possibility. <strong>Must</strong> shows a confident conclusion. <strong>Can't</strong> says an idea is impossible.</p><p class="example-line">The lights are on, so Maya must be home.</p></div></div></article>
+          <article class="concept-card"><button class="concept-trigger" type="button" aria-expanded="false" data-concept-toggle="past-details"><span class="concept-topline"><span class="concept-icon" aria-hidden="true">⏪</span><span class="chevron" aria-hidden="true">⌄</span></span><h3>Past Modals</h3><span class="phrase-row"><span class="phrase-chip">could have</span><span class="phrase-chip">should have</span><span class="phrase-chip">must have</span></span></button><div class="concept-details" id="past-details"><div><p>Use <strong>modal + have + V3</strong> to talk about an earlier possibility, regret, or deduction.</p><p class="example-line">You should have told me earlier.</p></div></div></article>
+        </div>
+
+        <div class="practice-layout">
+          <section class="practice-card" aria-labelledby="grammar-quiz-title"><div class="card-heading"><div><h3 id="grammar-quiz-title">Five-question decision check</h3><p>Choose the modal that best fits the meaning.</p></div><span class="score-pill" id="quizScore">0/5 correct</span></div><div class="question-list" id="quizList"></div><div class="practice-footer"><small id="quizMessage" aria-live="polite">Answer all five questions to complete Grammar Lab.</small><button class="secondary-button" id="resetQuiz" type="button">Reset quiz</button></div></section>
+          <aside class="side-card" aria-labelledby="remember-title"><h3 id="remember-title">Remember the shape.</h3><p>A modal does not take <em>to</em> before the next verb, except in phrases such as <em>ought to</em> and <em>have to</em>.</p><div class="formula-box"><code>modal + base verb</code></div><ul class="rule-list"><li>can speak</li><li>must leave</li><li>might rain</li><li>should study</li></ul></aside>
+        </div>
+      </section>
+
+      <section class="module-panel" id="speaking-panel" role="tabpanel" aria-labelledby="speaking-tab" tabindex="-1" hidden>
+        <div class="module-intro"><div><p class="section-kicker">Module 02 / Fluency &amp; confidence</p><h2>Say what the situation needs.</h2><p>Choose a scenario, work through three short speaking drills, and practise each target sentence aloud. The browser will compare your sentence with the active phrase.</p></div><div class="mini-meter"><span>Speaking drills</span><strong id="speakingProgress">0/9 exercises</strong></div></div>
+        <div class="speaking-layout">
+          <div class="scenario-picker" aria-label="Speaking scenarios" role="tablist">
+            <button class="scenario-button" type="button" role="tab" aria-selected="true" data-scenario="0"><span class="scenario-index">01</span><span><strong>Restaurant request</strong><small>could · would · may</small></span><span class="scenario-check" data-check="0"></span></button>
+            <button class="scenario-button" type="button" role="tab" aria-selected="false" data-scenario="1"><span class="scenario-index">02</span><span><strong>Advice to a friend</strong><small>should · ought to · had better</small></span><span class="scenario-check" data-check="1"></span></button>
+            <button class="scenario-button" type="button" role="tab" aria-selected="false" data-scenario="2"><span class="scenario-index">03</span><span><strong>Solve the mystery</strong><small>must have · couldn't have</small></span><span class="scenario-check" data-check="2"></span></button>
+          </div>
+          <section class="scenario-card" aria-labelledby="scenario-title"><div class="scenario-header"><p class="stage-label" id="scenario-label">Scenario 01 / Polite requests</p><h3 id="scenario-title">At the restaurant</h3><p id="scenario-description"></p></div><div class="prompt-card"><div class="prompt-meta"><span id="promptMetaLabel">Exercise 1 · Stress the modal</span><button class="audio-button" id="speakPrompt" type="button">▶ Play audio</button></div><p class="target-sentence" id="targetSentence"></p></div><div class="exercise-nav" aria-label="Speaking exercise navigation"><button class="exercise-nav-button" id="previousExercise" type="button">← Previous</button><div class="exercise-progress"><span class="exercise-counter" id="exerciseCounter">Exercise 1 of 3</span><div class="exercise-dots" id="exerciseDots" aria-label="Exercise completion"></div></div><button class="exercise-nav-button" id="nextExercise" type="button">Next →</button></div><div class="practice-controls"><button class="primary-button" id="startListening" type="button">🎙 Start listening</button><button class="secondary-button" id="markScenario" type="button">Mark exercise complete</button></div><div class="recognition-box"><div class="recognition-heading"><div><strong>Your attempt</strong><span class="mic-status" id="micStatus">Ready when you are.</span></div><span class="accuracy-label" id="accuracyLabel">—</span></div><p class="transcript" id="transcript" aria-live="polite">Your spoken sentence will appear here.</p><p class="recognition-feedback" id="recognitionFeedback" aria-live="polite">Tip: speak at a comfortable pace and include the highlighted modal phrase.</p><div class="support-note" id="recognitionSupport">Microphone practice works in browsers that support Speech Recognition. You may need to allow microphone access.</div></div><p class="coach-tip"><strong>Coach tip:</strong> <span id="scenarioTip"></span></p></section>
+          <aside class="coach-card" aria-labelledby="speaking-coach-title"><h3 id="speaking-coach-title">A three-step rehearsal.</h3><p>Treat each line like a small performance: notice the purpose, listen for the modal, then make the sentence yours.</p><ol class="speech-steps"><li><span>1</span><div><strong>Listen</strong><br>Hear the model sentence.</div></li><li><span>2</span><div><strong>Speak</strong><br>Use the microphone button.</div></li><li><span>3</span><div><strong>Reflect</strong><br>Try again or mark it practised.</div></li></ol></aside>
+        </div>
+      </section>
+
+      <section class="module-panel" id="vocabulary-panel" role="tabpanel" aria-labelledby="vocabulary-tab" tabindex="-1" hidden>
+        <div class="module-intro"><div><p class="section-kicker">Module 03 / Natural expression</p><h2>Move beyond the single-word modal.</h2><p>Explore useful modal phrases, their nuance, formality, and the collocations that make them sound natural in real conversation.</p></div><div class="mini-meter"><span>Flashcard status</span><strong id="vocabProgress">0/3 explored</strong></div></div>
+        <div class="vocab-toolbar"><div><label class="field-label" for="vocabSearch">Search the vocabulary bank</label><input class="text-input" id="vocabSearch" type="search" placeholder="Try: preference, coffee, formal…"></div><div><label class="field-label" for="vocabFilter">Filter by function</label><select class="select-input" id="vocabFilter"><option value="all">All functions</option><option value="probability">Probability</option><option value="preference">Preference</option><option value="need">Need or desire</option><option value="expectation">Expectation</option><option value="regret">Regret or criticism</option></select></div><span class="vocab-count" id="vocabCount" aria-live="polite">9 phrases</span></div>
+        <div class="flashcard-grid" id="vocabGrid">
+          <!-- Visible fallback cards are replaced by the full searchable bank when JavaScript initializes. -->
+          <button class="flashcard" type="button" data-flashcard="might-as-well" aria-pressed="false" aria-label="Reveal details for might as well">
+            <span class="flashcard-inner">
+              <span class="flashcard-face flashcard-front" aria-hidden="true"><span class="flashcard-top"><span class="tag">probability</span><span class="formality">Neutral</span></span><span class="flashcard-title">might as well</span><span class="flip-hint">Click to reveal meaning ↻</span></span>
+              <span class="flashcard-face flashcard-back" aria-hidden="true"><span class="micro-label" style="color:#99f6e4;">Meaning</span><span class="flashcard-title">might as well</span><p>The most sensible or practical choice in the situation.</p><p><strong>Often with:</strong> go home · ask · start now</p><ul><li>We might as well take the earlier train.</li><li>We might as well order now.</li></ul></span>
+            </span>
+          </button>
+          <button class="flashcard" type="button" data-flashcard="would-rather" aria-pressed="false" aria-label="Reveal details for would rather">
+            <span class="flashcard-inner">
+              <span class="flashcard-face flashcard-front" aria-hidden="true"><span class="flashcard-top"><span class="tag">preference</span><span class="formality">Neutral</span></span><span class="flashcard-title">would rather</span><span class="flip-hint">Click to reveal meaning ↻</span></span>
+              <span class="flashcard-face flashcard-back" aria-hidden="true"><span class="micro-label" style="color:#99f6e4;">Meaning</span><span class="flashcard-title">would rather</span><p>A clear preference between two choices.</p><p><strong>Often with:</strong> stay home · wait · not discuss</p><ul><li>I would rather walk than take a taxi.</li><li>She would rather not discuss it today.</li></ul></span>
+            </span>
+          </button>
+          <button class="flashcard" type="button" data-flashcard="could-do-with" aria-pressed="false" aria-label="Reveal details for could do with">
+            <span class="flashcard-inner">
+              <span class="flashcard-face flashcard-front" aria-hidden="true"><span class="flashcard-top"><span class="tag">need</span><span class="formality">Informal</span></span><span class="flashcard-title">could do with</span><span class="flip-hint">Click to reveal meaning ↻</span></span>
+              <span class="flashcard-face flashcard-back" aria-hidden="true"><span class="micro-label" style="color:#99f6e4;">Meaning</span><span class="flashcard-title">could do with</span><p>To need or really want something.</p><p><strong>Often with:</strong> a coffee · some help · a break</p><ul><li>I could do with a strong coffee.</li><li>We could do with some help.</li></ul></span>
+            </span>
+          </button>
+        </div><p class="flashcard-help">Click a card to flip it. Each card reveals meaning, common collocations, and two real-world examples.</p>
+      </section>
+
+      <section class="exam-section" id="exam" aria-labelledby="exam-title">
+        <div class="exam-intro"><div><p class="section-kicker">Final assessment / Exam conditions</p><h2 id="exam-title">Modal Verbs Mastery Exam</h2><p>Work independently under timed conditions. Submit once to receive your objective score, detailed feedback, and an answer key.</p></div><div class="exam-meta"><div><span>Time</span><strong>35 min</strong></div><div><span>Objective marks</span><strong>25</strong></div></div></div>
+
+        <div class="exam-shell">
+          <div class="exam-toolbar"><div><strong id="examStatus">Exam not started</strong><small>Feedback stays hidden until you submit.</small></div><div class="exam-clock" id="examClock" aria-live="polite">35:00</div></div>
+          <div class="exam-instructions"><div><h3>Candidate instructions</h3><p>Complete Parts A–D without checking the learning modules. Use the writing task in Part E as a short production challenge. You may submit early, but the timer will continue until you submit or reset.</p></div><ul><li>Part A: 10 marks</li><li>Part B: 5 marks</li><li>Part C: 5 marks</li><li>Part D: 5 marks</li><li>Part E: self-check</li></ul></div>
+
+          <div class="exam-body">
+            <section class="exam-part" aria-labelledby="exam-part-a"><div class="exam-part-header"><h3 id="exam-part-a">Part A · Grammar in context</h3><span>10 marks · Choose one answer</span></div><div class="exam-question-list" id="examPartA"></div></section>
+            <section class="exam-part" aria-labelledby="exam-part-b"><div class="exam-part-header"><h3 id="exam-part-b">Part B · Modal transformations</h3><span>5 marks · Rewrite each sentence</span></div><div class="exam-question-list" id="examPartB"></div></section>
+            <section class="exam-part" aria-labelledby="exam-part-c"><div class="exam-part-header"><h3 id="exam-part-c">Part C · Error correction</h3><span>5 marks · Correct the modal error</span></div><div class="exam-question-list" id="examPartC"></div></section>
+            <section class="exam-part" aria-labelledby="exam-part-d"><div class="exam-part-header"><h3 id="exam-part-d">Part D · Vocabulary and collocations</h3><span>5 marks · Choose one answer</span></div><div class="exam-question-list" id="examPartD"></div></section>
+            <section class="exam-part" aria-labelledby="exam-part-e"><div class="exam-part-header"><h3 id="exam-part-e">Part E · Writing challenge</h3><span>Self-check · 70–100 words</span></div><div class="writing-box"><p class="exam-prompt">Write a short message to a friend who is preparing for an important interview. Give at least three pieces of advice and include one past modal about preparation.</p><textarea class="exam-input" id="examWriting" rows="6" placeholder="You should… You ought to… You should have…"></textarea><div class="rubric-grid"><div class="rubric-item"><strong>□ Range</strong>Did I use at least three different modal forms?</div><div class="rubric-item"><strong>□ Accuracy</strong>Did I use base verbs and V3 after past modals?</div><div class="rubric-item"><strong>□ Communication</strong>Is my advice clear, relevant, and natural?</div></div></div></section>
+          </div>
+
+          <div class="exam-actions"><div class="exam-result" id="examResult" aria-live="polite">Start the timer when you are ready.</div><div class="button-row"><button class="primary-button" id="startExam" type="button">Start timed exam</button><button class="secondary-button" id="submitExam" type="button" disabled>Submit exam</button><button class="quiet-button" id="resetExam" type="button">Reset worksheet</button></div></div>
+          <div class="exam-key" id="examKey" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <section class="notes-panel" aria-labelledby="notes-title"><div><p class="section-kicker">Study utility</p><h2 id="notes-title">Keep one sentence worth remembering.</h2><p>Write a personal example, a correction, or a phrase you want to reuse later.</p><textarea class="notes-textarea" id="studyNotes" placeholder="Example: I should have checked the schedule before leaving." aria-label="Your modal verb study notes"></textarea></div><div class="notes-actions"><button class="primary-button" id="saveNotes" type="button">Save notes</button><button class="secondary-button" id="downloadNotes" type="button">Download .txt</button><span class="note-status" id="noteStatus" aria-live="polite"></span></div></section>
+    <footer class="site-footer"><p>Modal Verbs Mastery Hub · Grammar, speaking, vocabulary, assessment.</p><p>Built with semantic HTML, CSS, and vanilla JavaScript.</p></footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    const storageKey = "modalVerbsMasteryHub";
+    const notesKey = "modalVerbsMasteryHubNotes";
+    const $ = (selector, scope = document) => scope.querySelector(selector);
+    const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+    const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
+    const loadState = () => { try { return JSON.parse(localStorage.getItem(storageKey) || "{}"); } catch { return {}; } };
+    const saved = loadState();
+    const appState = {
+      grammarComplete: Boolean(saved.grammarComplete), speakingComplete: Boolean(saved.speakingComplete), vocabularyComplete: Boolean(saved.vocabularyComplete),
+      quizAnswers: saved.quizAnswers || {}, practisedScenarios: Array.isArray(saved.practisedScenarios) ? saved.practisedScenarios : [], completedExercises: Array.isArray(saved.completedExercises) ? saved.completedExercises : [], exploredCards: Array.isArray(saved.exploredCards) ? saved.exploredCards : []
+    };
+    const persistState = () => { try { localStorage.setItem(storageKey, JSON.stringify(appState)); } catch {} };
+    let toastTimer;
+    const showToast = (message) => { const toast = $("#toast"); toast.textContent = message; toast.classList.add("is-visible"); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2600); };
+
+    // Tabs
+    const tabButtons = $$(".module-tab");
+    const activateTab = (name, scroll = true) => {
+      tabButtons.forEach((button) => button.setAttribute("aria-selected", String(button.dataset.tab === name)));
+      $$(".module-panel").forEach((panel) => { panel.hidden = panel.id !== `${name}-panel`; });
+      if (scroll) $("#modules").scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    tabButtons.forEach((button, index) => {
+      button.addEventListener("click", () => activateTab(button.dataset.tab));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+        event.preventDefault();
+        const next = (index + (event.key === "ArrowRight" ? 1 : -1) + tabButtons.length) % tabButtons.length;
+        tabButtons[next].focus(); tabButtons[next].click();
+      });
+    });
+
+    const updateProgress = () => {
+      const completed = [appState.grammarComplete, appState.speakingComplete, appState.vocabularyComplete].filter(Boolean).length;
+      $("#overallProgressText").textContent = `${completed}/3 Modules Completed`;
+      $("#overallProgressBar").style.width = `${completed / 3 * 100}%`;
+      $(".progress-track").setAttribute("aria-valuenow", String(completed));
+      $("#grammar-state").textContent = appState.grammarComplete ? "✓ Done" : "Start";
+      $("#speaking-state").textContent = appState.speakingComplete ? "✓ Done" : "Start";
+      $("#vocabulary-state").textContent = appState.vocabularyComplete ? "✓ Done" : "Explore";
+    };
+
+    // Concept cards
+    $$(".concept-trigger").forEach((trigger) => trigger.addEventListener("click", () => {
+      const open = trigger.closest(".concept-card").classList.toggle("is-open");
+      trigger.setAttribute("aria-expanded", String(open));
+    }));
+    $("#copyRule").addEventListener("click", async () => { try { await navigator.clipboard.writeText("Modal + base verb"); showToast("Rule copied: Modal + base verb"); } catch { showToast("Rule: Modal + base verb"); } });
+
+    // Grammar check
+    const quizQuestions = [
+      { prompt: "When I was five, I ___ swim across the pool.", options: ["could", "must", "may"], answer: "could", explanation: "Could describes a general ability in the past." },
+      { prompt: "Visitors ___ show ID at the front desk; it is company policy.", options: ["might", "must", "could"], answer: "must", explanation: "Must expresses a strong obligation or rule." },
+      { prompt: "You look exhausted. You ___ take a short break.", options: ["should", "can't", "must have"], answer: "should", explanation: "Should is used for advice or a recommendation." },
+      { prompt: "The ground is wet. It ___ have rained last night.", options: ["must", "can't", "should"], answer: "must", explanation: "Must have + V3 expresses a confident past deduction." },
+      { prompt: "She ___ have taken the train; she was with me on the bus.", options: ["must", "could", "can't"], answer: "can't", explanation: "Can't have + V3 expresses an impossible past idea." }
+    ];
+    const quizList = $("#quizList");
+    const applyQuizAnswer = (index, choice, announce = true) => {
+      const question = quizQuestions[index]; const card = $(`[data-question="${index}"]`, quizList); if (!question || !card) return;
+      appState.quizAnswers[index] = choice; const correct = choice === question.answer; card.dataset.state = correct ? "correct" : "incorrect";
+      $$('[data-quiz-option]', card).forEach((button) => { button.classList.remove("is-correct", "is-wrong"); if (button.dataset.choice === question.answer) button.classList.add("is-correct"); if (!correct && button.dataset.choice === choice) button.classList.add("is-wrong"); });
+      const feedback = $(`#feedback-${index}`); feedback.hidden = false; feedback.className = `question-feedback ${correct ? "feedback-good" : "feedback-bad"}`; feedback.textContent = `${correct ? "Correct" : "Not quite"} — ${question.explanation}`;
+      updateQuizSummary(); if (announce) showToast(correct ? "Correct choice." : "Review the explanation and try again.");
+    };
+    const updateQuizSummary = () => {
+      const answered = Object.keys(appState.quizAnswers).length; const score = Object.entries(appState.quizAnswers).filter(([index, choice]) => quizQuestions[index]?.answer === choice).length;
+      $("#grammarProgress").textContent = `${answered}/5 answered`; $("#quizScore").textContent = `${score}/5 correct`; appState.grammarComplete = answered === quizQuestions.length;
+      $("#quizMessage").textContent = appState.grammarComplete ? "Grammar Lab complete — revisit any red answer to strengthen the rule." : "Answer all five questions to complete Grammar Lab.";
+      persistState(); updateProgress();
+    };
+    const renderQuiz = () => {
+      quizList.innerHTML = quizQuestions.map((question, index) => `<fieldset class="question-card" data-question="${index}"><legend><span class="q-number">${String(index + 1).padStart(2, "0")}</span>${escapeHtml(question.prompt)}</legend><div class="option-grid">${question.options.map((option) => `<button class="answer-option" type="button" data-quiz-option data-index="${index}" data-choice="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("")}</div><p class="question-feedback" id="feedback-${index}" hidden></p></fieldset>`).join("");
+      $$('[data-quiz-option]', quizList).forEach((button) => button.addEventListener("click", () => applyQuizAnswer(Number(button.dataset.index), button.dataset.choice)));
+      Object.entries(appState.quizAnswers).forEach(([index, choice]) => applyQuizAnswer(Number(index), choice, false)); updateQuizSummary();
+    };
+    $("#resetQuiz").addEventListener("click", () => { appState.quizAnswers = {}; appState.grammarComplete = false; persistState(); renderQuiz(); showToast("Quiz reset."); });
+
+    // Speaking simulator
+    const scenarios = [
+      {
+        label: "Scenario 01 / Polite requests",
+        title: "At the restaurant",
+        context: "You are ordering a meal and need to speak politely to the server.",
+        tip: "Could I have…? sounds polite and natural when ordering.",
+        exercises: [
+          { task: "Order a vegetarian pasta and a glass of water.", target: "Could I have the vegetarian pasta, please? And may I have a glass of water?", modals: ["could", "may"] },
+          { task: "Ask the server to bring another menu.", target: "Would you mind bringing us another menu, please?", modals: ["would"] },
+          { task: "Ask if you can pay by card.", target: "May I pay by card, please?", modals: ["may"] }
+        ]
+      },
+      {
+        label: "Scenario 02 / Recommendations",
+        title: "Advice to a friend",
+        context: "Your friend is exhausted but keeps working. Give supportive advice.",
+        tip: "Should feels supportive; had better sounds stronger and more urgent.",
+        exercises: [
+          { task: "Recommend speaking to a manager and taking a break.", target: "You should talk to your manager, and you had better take a break today.", modals: ["should", "had better"] },
+          { task: "Suggest speaking to someone before making a decision.", target: "You ought to speak to someone you trust before making a decision.", modals: ["ought to"] },
+          { task: "Express regret about not taking a break earlier.", target: "You should have taken a break before you got so tired.", modals: ["should have"] }
+        ]
+      },
+      {
+        label: "Scenario 03 / Past deduction",
+        title: "Solve the mystery",
+        context: "The lights were on, but the window was locked. Explain what probably happened.",
+        tip: "Use must have for a confident deduction and couldn't have for an impossible one.",
+        exercises: [
+          { task: "Explain the likely entrance and why the guard did not see the person.", target: "Someone must have entered through the back door. The guard couldn't have seen them.", modals: ["must have", "couldn't have"] },
+          { task: "Explain why the person could not have entered through the front door.", target: "The thief couldn't have entered through the front door; it was locked from the inside.", modals: ["couldn't have"] },
+          { task: "Make a confident deduction about the missing key.", target: "The missing key must have fallen under the sofa.", modals: ["must have"] }
+        ]
+      }
+    ];
+    let currentScenario = 0; let currentExercise = 0; let recognition = null; let isRecognizing = false;
+    const highlightModals = (text, modals) => { const pattern = modals.map(escapeHtml).sort((a,b) => b.length - a.length).join("|"); return escapeHtml(text).replace(new RegExp(pattern, "gi"), (match) => `<mark class="modal-stress">${match}</mark>`); };
+    const exerciseKey = (scenarioIndex, exerciseIndex) => `${scenarioIndex}-${exerciseIndex}`;
+    const normalizeSpeakingProgress = () => {
+      const validKeys = new Set(scenarios.flatMap((scenario, scenarioIndex) => scenario.exercises.map((_, exerciseIndex) => exerciseKey(scenarioIndex, exerciseIndex))));
+      appState.completedExercises = [...new Set(appState.completedExercises)].filter((key) => validKeys.has(key));
+
+      // Migrate progress from the original three-scenario version.
+      appState.practisedScenarios.forEach((scenarioIndex) => {
+        if (!scenarios[scenarioIndex]) return;
+        scenarios[scenarioIndex].exercises.forEach((_, exerciseIndex) => {
+          const key = exerciseKey(scenarioIndex, exerciseIndex);
+          if (!appState.completedExercises.includes(key)) appState.completedExercises.push(key);
+        });
+      });
+
+      appState.practisedScenarios = scenarios.reduce((completeScenarios, scenario, scenarioIndex) => {
+        const complete = scenario.exercises.every((_, exerciseIndex) => appState.completedExercises.includes(exerciseKey(scenarioIndex, exerciseIndex)));
+        if (complete) completeScenarios.push(scenarioIndex);
+        return completeScenarios;
+      }, []);
+    };
+    const updateSpeakingSummary = () => {
+      normalizeSpeakingProgress();
+      $("#speakingProgress").textContent = `${appState.completedExercises.length}/9 exercises`;
+      appState.speakingComplete = appState.completedExercises.length === 9;
+      persistState(); updateProgress();
+    };
+    const renderExerciseDots = () => {
+      $("#exerciseDots").innerHTML = scenarios[currentScenario].exercises.map((_, exerciseIndex) => {
+        const complete = appState.completedExercises.includes(exerciseKey(currentScenario, exerciseIndex));
+        const current = exerciseIndex === currentExercise;
+        return `<button class="exercise-dot ${complete ? "is-complete" : ""} ${current ? "is-current" : ""}" type="button" data-exercise-dot="${exerciseIndex}" aria-label="Go to exercise ${exerciseIndex + 1}"></button>`;
+      }).join("");
+      $$('[data-exercise-dot]').forEach((button) => button.addEventListener("click", () => {
+        currentExercise = Number(button.dataset.exerciseDot);
+        renderScenario(currentScenario);
+      }));
+    };
+    const renderScenario = (index, clearAttempt = true) => {
+      normalizeSpeakingProgress();
+      currentScenario = index;
+      const scenario = scenarios[index];
+      const exercise = scenario.exercises[currentExercise];
+
+      $$(".scenario-button").forEach((button) => button.setAttribute("aria-selected", String(Number(button.dataset.scenario) === index)));
+      scenarios.forEach((item, itemIndex) => {
+        const complete = item.exercises.every((_, exerciseIndex) => appState.completedExercises.includes(exerciseKey(itemIndex, exerciseIndex)));
+        $(`[data-check="${itemIndex}"]`).textContent = complete ? "✓" : "";
+      });
+
+      $("#scenario-label").textContent = `${scenario.label} / Exercise ${currentExercise + 1}`;
+      $("#scenario-title").textContent = scenario.title;
+      $("#scenario-description").textContent = `${scenario.context} ${exercise.task}`;
+      $("#promptMetaLabel").textContent = `Exercise ${currentExercise + 1} of ${scenario.exercises.length} · Stress the modal`;
+      $("#targetSentence").innerHTML = highlightModals(exercise.target, exercise.modals);
+      $("#scenarioTip").textContent = scenario.tip;
+      $("#exerciseCounter").textContent = `Exercise ${currentExercise + 1} of ${scenario.exercises.length}`;
+      $("#previousExercise").disabled = currentExercise === 0;
+      $("#nextExercise").disabled = currentExercise === scenario.exercises.length - 1;
+      $("#markScenario").textContent = appState.completedExercises.includes(exerciseKey(currentScenario, currentExercise)) ? "✓ Exercise complete" : "Mark exercise complete";
+      renderExerciseDots();
+
+      if (clearAttempt) { $("#transcript").textContent = "Your spoken sentence will appear here."; $("#accuracyLabel").textContent = "—"; $("#recognitionFeedback").textContent = "Tip: speak at a comfortable pace and include the highlighted modal phrase."; $("#micStatus").textContent = "Ready when you are."; }
+      updateSpeakingSummary();
+    };
+    const markCurrentExercise = (announce = true) => {
+      const key = exerciseKey(currentScenario, currentExercise);
+      if (!appState.completedExercises.includes(key)) appState.completedExercises.push(key);
+      normalizeSpeakingProgress(); updateSpeakingSummary(); renderScenario(currentScenario, false);
+      if (announce) showToast(`Exercise ${currentExercise + 1} complete.`);
+    };
+    const moveExercise = (direction) => {
+      if (isRecognizing && recognition) recognition.stop();
+      const nextIndex = currentExercise + direction;
+      if (nextIndex < 0 || nextIndex >= scenarios[currentScenario].exercises.length) return;
+      currentExercise = nextIndex; renderScenario(currentScenario);
+    };
+    $$(".scenario-button").forEach((button) => button.addEventListener("click", () => { if (isRecognizing && recognition) recognition.stop(); currentExercise = 0; renderScenario(Number(button.dataset.scenario)); }));
+    $("#previousExercise").addEventListener("click", () => moveExercise(-1));
+    $("#nextExercise").addEventListener("click", () => moveExercise(1));
+    $("#markScenario").addEventListener("click", () => markCurrentExercise());
+    $("#speakPrompt").addEventListener("click", () => { if (!("speechSynthesis" in window)) return showToast("Audio playback is not supported in this browser."); speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(scenarios[currentScenario].exercises[currentExercise].target); utterance.lang = "en-US"; utterance.rate = .86; speechSynthesis.speak(utterance); });
+    const normalizeSpeech = (text) => text.toLowerCase().replace(/[^\w\s']/g, "").replace(/\s+/g, " ").trim();
+    const tokenDistance = (a,b) => { const matrix = Array.from({length:a.length+1}, () => Array(b.length+1).fill(0)); for (let i=0;i<=a.length;i++) matrix[i][0]=i; for (let j=0;j<=b.length;j++) matrix[0][j]=j; for (let i=1;i<=a.length;i++) for (let j=1;j<=b.length;j++) matrix[i][j]=Math.min(matrix[i-1][j]+1,matrix[i][j-1]+1,matrix[i-1][j-1]+(a[i-1]===b[j-1]?0:1)); return matrix[a.length][b.length]; };
+    const compareSpeech = (spoken,target) => { const a=normalizeSpeech(spoken).split(" ").filter(Boolean), b=normalizeSpeech(target).split(" ").filter(Boolean); const base=Math.round((1-tokenDistance(a,b)/Math.max(a.length,b.length))*100); const modalMentioned=scenarios[currentScenario].exercises[currentExercise].modals.some((modal)=>normalizeSpeech(spoken).includes(normalizeSpeech(modal))); return Math.max(0,Math.min(100,modalMentioned?base:base-10)); };
+    const evaluateSpeech = (spoken) => { const target=scenarios[currentScenario].exercises[currentExercise].target; const score=compareSpeech(spoken,target); $("#accuracyLabel").textContent=`${score}% match`; $("#transcript").textContent=spoken; $("#recognitionFeedback").textContent=score>=85?"Excellent match. Your sentence and modal choice are clear.":score>=70?"Strong attempt. Try once more if you want to smooth the rhythm.":"Keep practising. Listen again, then focus on the highlighted modal phrase."; if(score>=75) markCurrentExercise(false); };
+    const setupRecognition = () => {
+      const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!Recognition) { $("#startListening").disabled=true; $("#recognitionSupport").textContent="Speech Recognition is not available in this browser. Play the model audio and mark each exercise complete manually."; $("#micStatus").textContent="Microphone comparison unavailable."; return; }
+      recognition = new Recognition(); recognition.lang="en-US"; recognition.continuous=false; recognition.interimResults=true; recognition.maxAlternatives=1;
+      recognition.onstart=()=>{isRecognizing=true;$("#startListening").textContent="■ Stop listening";$("#micStatus").textContent="Listening…";$("#recognitionFeedback").textContent="Speak the full model sentence.";};
+      recognition.onresult=(event)=>{let interim="",finalText="";for(let i=event.resultIndex;i<event.results.length;i++){const transcript=event.results[i][0].transcript;if(event.results[i].isFinal)finalText+=transcript;else interim+=transcript;}$("#transcript").textContent=finalText||interim||"Listening…";if(finalText.trim())evaluateSpeech(finalText.trim());};
+      recognition.onerror=(event)=>{const messages={"not-allowed":"Microphone permission was not granted.","no-speech":"No speech was detected. Try again when you are ready.","audio-capture":"No microphone was found.",network:"Speech recognition needs a network connection in this browser."};$("#micStatus").textContent="Try again when ready.";$("#recognitionFeedback").textContent=messages[event.error]||"The microphone stopped. Please try again.";};
+      recognition.onend=()=>{isRecognizing=false;$("#startListening").textContent="🎙 Start listening";$("#micStatus").textContent="Ready when you are.";};
+    };
+    $("#startListening").addEventListener("click",()=>{if(!recognition)return;if(isRecognizing)return recognition.stop();try{$("#transcript").textContent="Listening…";recognition.start();}catch{$("#recognitionFeedback").textContent="The microphone is already starting. Please wait and try again.";}});
+
+    // Vocabulary cards
+    const vocabulary = [
+      {id:"might-as-well",phrase:"might as well",function:"probability",formality:"Neutral",nuance:"The most sensible or practical choice in the situation.",collocations:["go home","ask","start now"],examples:["We might as well take the earlier train.","There is no queue, so we might as well order now."]},
+      {id:"would-rather",phrase:"would rather",function:"preference",formality:"Neutral",nuance:"A clear preference between two choices.",collocations:["stay home","wait","not discuss"],examples:["I would rather walk than take a taxi.","She would rather not discuss the issue today."]},
+      {id:"bound-to",phrase:"be bound to",function:"probability",formality:"Formal",nuance:"A strong prediction that something is very likely.",collocations:["happen","change","cause problems"],examples:["The schedule is bound to change before Friday.","You are bound to feel nervous before the interview."]},
+      {id:"cannot-bear",phrase:"cannot bear to",function:"preference",formality:"Literary",nuance:"To strongly dislike or feel unable to tolerate something.",collocations:["watch","think about","leave"],examples:["I cannot bear to watch that scene again.","He could not bear to leave without saying goodbye."]},
+      {id:"may-well",phrase:"may well",function:"probability",formality:"Formal",nuance:"A possibility that the speaker considers quite likely.",collocations:["be right","happen","explain"],examples:["You may well be right about the delay.","This may well explain why the system stopped."]},
+      {id:"could-do-with",phrase:"could do with",function:"need",formality:"Informal",nuance:"To need or really want something.",collocations:["a coffee","some help","a break"],examples:["I could do with a strong coffee.","We could do with some help in the kitchen."]},
+      {id:"supposed-to",phrase:"be supposed to",function:"expectation",formality:"Neutral",nuance:"An expected arrangement, duty, or rule.",collocations:["arrive","call","finish"],examples:["We are supposed to arrive by eight.","You are not supposed to share that password."]},
+      {id:"should-have",phrase:"should have",function:"regret",formality:"Neutral",nuance:"A past criticism, regret, or better alternative.",collocations:["called","checked","asked"],examples:["I should have checked the address first.","You should have asked for help earlier."]},
+      {id:"had-better",phrase:"had better",function:"expectation",formality:"Strong",nuance:"Urgent advice, often with an implied consequence.",collocations:["leave now","be careful","not forget"],examples:["You had better leave before the traffic gets worse.","We had better not forget the tickets."]}
+    ];
+    const vocabGrid = $("#vocabGrid");
+
+    const normalizeVocabularyProgress = () => {
+      const validIds = new Set(vocabulary.map((item) => item.id));
+      appState.exploredCards = [...new Set(appState.exploredCards)].filter((id) => validIds.has(id));
+    };
+
+    const renderVocabulary = () => {
+      if (!vocabGrid || !$("#vocabSearch") || !$("#vocabFilter")) return;
+
+      normalizeVocabularyProgress();
+      const query=$("#vocabSearch").value.toLowerCase().trim(), filter=$("#vocabFilter").value;
+      const filtered=vocabulary.filter((item)=>{const searchable=[item.phrase,item.function,item.formality,item.nuance,...item.collocations,...item.examples].join(" ").toLowerCase();return(!query||searchable.includes(query))&&(filter==="all"||item.function===filter);});
+      $("#vocabCount").textContent=`${filtered.length} phrase${filtered.length===1?"":"s"}`;
+      if(!filtered.length){vocabGrid.innerHTML='<div class="empty-state">No phrases match that search. Try a broader word such as “preference” or “formal”.</div>';return;}
+      vocabGrid.innerHTML=filtered.map((item)=>{const flipped=appState.exploredCards.includes(item.id);return `<button class="flashcard ${flipped?"is-flipped":""}" type="button" data-flashcard="${escapeHtml(item.id)}" aria-pressed="${flipped}" aria-label="${flipped?"Hide":"Reveal"} details for ${escapeHtml(item.phrase)}"><span class="flashcard-inner"><span class="flashcard-face flashcard-front" aria-hidden="true"><span class="flashcard-top"><span class="tag">${escapeHtml(item.function)}</span><span class="formality">${escapeHtml(item.formality)}</span></span><span class="flashcard-title">${escapeHtml(item.phrase)}</span><span class="flip-hint">Click to reveal meaning ↻</span></span><span class="flashcard-face flashcard-back" aria-hidden="true"><span class="micro-label" style="color:#99f6e4;">Meaning</span><span class="flashcard-title">${escapeHtml(item.phrase)}</span><p>${escapeHtml(item.nuance)}</p><p><strong>Often with:</strong> ${item.collocations.map(escapeHtml).join(" · ")}</p><ul>${item.examples.map((example)=>`<li>${escapeHtml(example)}</li>`).join("")}</ul></span></span></button>`;}).join("");
+    };
+    vocabGrid.addEventListener("click", (event) => {
+      const card = event.target.closest("[data-flashcard]");
+      if (!card || !vocabGrid.contains(card)) return;
+
+      const item = vocabulary.find((entry) => entry.id === card.dataset.flashcard);
+      if (!item) return;
+
+      const flipped = card.classList.toggle("is-flipped");
+      card.setAttribute("aria-pressed", String(flipped));
+      card.setAttribute("aria-label", `${flipped ? "Hide" : "Reveal"} details for ${item.phrase}`);
+
+      if (flipped && !appState.exploredCards.includes(item.id)) {
+        appState.exploredCards.push(item.id);
+        updateVocabularySummary();
+      }
+    });
+
+    const updateVocabularySummary = () => {
+      normalizeVocabularyProgress();
+      $("#vocabProgress").textContent=`${Math.min(appState.exploredCards.length,3)}/3 explored`;
+      appState.vocabularyComplete=appState.exploredCards.length>=3;
+      persistState(); updateProgress();
+    };
+    $("#vocabSearch").addEventListener("input",renderVocabulary); $("#vocabFilter").addEventListener("change",renderVocabulary);
+
+    // Full exam worksheet
+    const examData = {
+      partA: [
+        {prompt:"You ___ submit the form before Friday; it is a firm deadline.", options:["might","must","could"], answer:"must", explanation:"Must expresses a strong obligation."},
+        {prompt:"When my grandmother was young, she ___ speak three languages.", options:["could","may","should"], answer:"could", explanation:"Could expresses past ability."},
+        {prompt:"The lights are off and the office is locked. Everyone ___ have gone home.", options:["must","might","can't"], answer:"might", explanation:"Might have shows a possible past explanation."},
+        {prompt:"You ___ have told me about the change. I waited for an hour.", options:["should","should have","can"], answer:"should have", explanation:"Should have expresses past criticism or regret."},
+        {prompt:"That ___ be Jamal at the door; he is abroad this week.", options:["must","can't","ought to"], answer:"can't", explanation:"Can't expresses an impossible deduction."},
+        {prompt:"___ you possibly send me the updated file today?", options:["Could","Must","Have to"], answer:"Could", explanation:"Could creates a polite request."},
+        {prompt:"Employees ___ wear an ID badge while inside the laboratory.", options:["have to","might","would rather"], answer:"have to", explanation:"Have to commonly describes an external rule."},
+        {prompt:"If you want my advice, you ___ speak to your tutor.", options:["should","can't have","may well"], answer:"should", explanation:"Should introduces advice."},
+        {prompt:"The train is delayed, so we ___ as well get a coffee.", options:["might","must have","ought"], answer:"might", explanation:"Might as well introduces the practical choice."},
+        {prompt:"She has not answered any messages. She ___ be in a meeting.", options:["may","can't","should have"], answer:"may", explanation:"May expresses a present possibility."}
+      ],
+      partB: [
+        {prompt:"It was a mistake not to back up the files. (SHOULD)", answer:"I should have backed up the files.", acceptable:["I should have backed up the files","I should've backed up the files"]},
+        {prompt:"It is possible that Leo forgot the appointment. (MIGHT)", answer:"Leo might have forgotten the appointment.", acceptable:["Leo might have forgotten the appointment","Leo may have forgotten the appointment"]},
+        {prompt:"It is necessary for visitors to sign in. (HAVE TO)", answer:"Visitors have to sign in.", acceptable:["Visitors have to sign in","Visitors must sign in"]},
+        {prompt:"I prefer to stay home tonight. (RATHER)", answer:"I would rather stay home tonight.", acceptable:["I would rather stay home tonight","I'd rather stay home tonight"]},
+        {prompt:"I am certain that Nora left early. (MUST)", answer:"Nora must have left early.", acceptable:["Nora must have left early"]}
+      ],
+      partC: [
+        {prompt:"Correct the sentence: You must to bring your passport.", answer:"You must bring your passport.", acceptable:["You must bring your passport"]},
+        {prompt:"Correct the sentence: He should have went earlier.", answer:"He should have gone earlier.", acceptable:["He should have gone earlier"]},
+        {prompt:"Correct the sentence: May you help me with this box?", answer:"Could you help me with this box?", acceptable:["Could you help me with this box","Can you help me with this box"]},
+        {prompt:"Correct the sentence: She can't has forgotten the meeting.", answer:"She can't have forgotten the meeting.", acceptable:["She can't have forgotten the meeting"]},
+        {prompt:"Correct the sentence: We ought studying more regularly.", answer:"We ought to study more regularly.", acceptable:["We ought to study more regularly"]}
+      ],
+      partD: [
+        {prompt:"There is no reason to wait. We ___ leave now.", options:["might as well","cannot bear to","would rather"], answer:"might as well", explanation:"Might as well describes the practical choice."},
+        {prompt:"I ___ a short break after this long meeting.", options:["could do with","am bound to","may well"], answer:"could do with", explanation:"Could do with means need or really want."},
+        {prompt:"The plan is ___ change after the client sees it.", options:["bound to","rather","supposed"], answer:"bound to", explanation:"Be bound to describes a strong prediction."},
+        {prompt:"We are ___ start at nine, so please arrive early.", options:["supposed to","unable to","might as well"], answer:"supposed to", explanation:"Be supposed to describes an expectation or arrangement."},
+        {prompt:"I ___ checked the address before leaving home.", options:["should have","may well","would rather"], answer:"should have", explanation:"Should have expresses regret about a past action."}
+      ]
+    };
+    const examState = { started:false, submitted:false, remaining:2100, timer:null, answers:{partA:{},partB:{},partC:{},partD:{}} };
+    const renderExam = () => {
+      $("#examPartA").innerHTML=examData.partA.map((q,i)=>`<fieldset class="exam-question" data-exam-group="partA" data-exam-index="${i}"><legend><strong>${i+1}.</strong> ${escapeHtml(q.prompt)}</legend><div class="exam-option-grid">${q.options.map((option)=>`<button class="exam-option" type="button" data-exam-choice="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("")}</div><p class="exam-feedback"></p></fieldset>`).join("");
+      $("#examPartD").innerHTML=examData.partD.map((q,i)=>`<fieldset class="exam-question" data-exam-group="partD" data-exam-index="${i}"><legend><strong>${i+1}.</strong> ${escapeHtml(q.prompt)}</legend><div class="exam-option-grid">${q.options.map((option)=>`<button class="exam-option" type="button" data-exam-choice="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("")}</div><p class="exam-feedback"></p></fieldset>`).join("");
+      $("#examPartB").innerHTML=examData.partB.map((q,i)=>`<label class="exam-question" data-exam-group="partB" data-exam-index="${i}"><span class="exam-prompt"><strong>${i+1}.</strong> ${escapeHtml(q.prompt)}</span><input class="exam-input" type="text" autocomplete="off" data-exam-input placeholder="Write your answer"><span class="exam-feedback"></span></label>`).join("");
+      $("#examPartC").innerHTML=examData.partC.map((q,i)=>`<label class="exam-question" data-exam-group="partC" data-exam-index="${i}"><span class="exam-prompt"><strong>${i+1}.</strong> ${escapeHtml(q.prompt)}</span><input class="exam-input" type="text" autocomplete="off" data-exam-input placeholder="Correct the sentence"><span class="exam-feedback"></span></label>`).join("");
+      $$('[data-exam-choice]').forEach((button)=>button.addEventListener("click",()=>{if(!examState.started||examState.submitted)return;const question=button.closest(".exam-question");const group=question.dataset.examGroup;const index=Number(question.dataset.examIndex);examState.answers[group][index]=button.dataset.examChoice;$$('[data-exam-choice]',question).forEach((item)=>item.classList.toggle("is-selected",item===button));}));
+      $$('[data-exam-input]').forEach((input)=>input.addEventListener("input",()=>{if(!examState.started||examState.submitted)return;const question=input.closest(".exam-question");examState.answers[question.dataset.examGroup][question.dataset.examIndex]=input.value;}));
+    };
+    const normalizeAnswer = (value) => value.toLowerCase().replace(/[.,!?;:]/g," ").replace(/[’']/g,"'").replace(/\s+/g," ").trim();
+    const checkTextAnswer = (value, item) => item.acceptable.some((answer)=>normalizeAnswer(value)===normalizeAnswer(answer));
+    const getObjectiveScore = () => {
+      let score=0;
+      examData.partA.forEach((q,i)=>{if(examState.answers.partA[i]===q.answer)score++;});
+      examData.partB.forEach((q,i)=>{if(checkTextAnswer(examState.answers.partB[i]||"",q))score++;});
+      examData.partC.forEach((q,i)=>{if(checkTextAnswer(examState.answers.partC[i]||"",q))score++;});
+      examData.partD.forEach((q,i)=>{if(examState.answers.partD[i]===q.answer)score++;});
+      return score;
+    };
+    const revealExamFeedback = () => {
+      ["partA","partD"].forEach((group)=>{examData[group].forEach((q,i)=>{const question=$(`[data-exam-group="${group}"][data-exam-index="${i}"]`);const chosen=examState.answers[group][i];const correct=chosen===q.answer;question.classList.add(correct?"is-correct":"is-incorrect");$$('[data-exam-choice]',question).forEach((button)=>{if(button.dataset.examChoice===q.answer)button.classList.add("is-correct");if(button.dataset.examChoice===chosen&&!correct)button.classList.add("is-incorrect");});const feedback=$(".exam-feedback",question);feedback.textContent=correct?`Correct — ${q.explanation}`:`Answer: ${q.answer}. ${q.explanation}`;feedback.classList.add("is-visible");});});
+      ["partB","partC"].forEach((group)=>{examData[group].forEach((q,i)=>{const question=$(`[data-exam-group="${group}"][data-exam-index="${i}"]`);const input=$("[data-exam-input]",question);const correct=checkTextAnswer(input.value,q);input.classList.add(correct?"is-correct":"is-incorrect");question.classList.add(correct?"is-correct":"is-incorrect");const feedback=$(".exam-feedback",question);feedback.textContent=correct?"Correct.":`Suggested answer: ${q.answer}`;feedback.classList.add("is-visible");});});
+    };
+    const buildAnswerKey = () => { $("#examKey").innerHTML=`<strong>Answer key</strong><ol>${examData.partA.map((q)=>`<li>${escapeHtml(q.answer)}</li>`).join("")}<li>${examData.partB.map((q)=>escapeHtml(q.answer)).join(" · ")}</li><li>${examData.partC.map((q)=>escapeHtml(q.answer)).join(" · ")}</li><li>${examData.partD.map((q)=>escapeHtml(q.answer)).join(" · ")}</li></ol>`; $("#examKey").classList.add("is-visible"); };
+    const updateClock = () => { const minutes=String(Math.floor(examState.remaining/60)).padStart(2,"0"), seconds=String(examState.remaining%60).padStart(2,"0"); $("#examClock").textContent=`${minutes}:${seconds}`; $("#examClock").classList.toggle("is-danger",examState.remaining<=300); };
+    const stopExamTimer = () => { clearInterval(examState.timer); examState.timer=null; };
+    const finishExam = (timedOut=false) => { if(examState.submitted)return; examState.submitted=true; stopExamTimer(); revealExamFeedback(); const score=getObjectiveScore(); const percent=Math.round(score/25*100); $("#examResult").innerHTML=`<strong>${score}/25 objective marks (${percent}%).</strong> ${timedOut?"Time was up.":"Your exam has been submitted."} Review the marked items and complete Part E's checklist.`; $("#examStatus").textContent=timedOut?"Time expired":"Exam submitted"; $("#submitExam").disabled=true; $("#startExam").disabled=true; buildAnswerKey(); showToast(timedOut?"Time expired — exam submitted.":"Exam submitted. Feedback is ready."); };
+    const startExam = () => { if(examState.started&&!examState.submitted)return; examState.started=true;examState.submitted=false;examState.remaining=2100;examState.answers={partA:{},partB:{},partC:{},partD:{}}; $("#examStatus").textContent="Exam in progress";$("#examResult").textContent="Work independently, then submit when ready.";$("#startExam").disabled=true;$("#submitExam").disabled=false;$("#examKey").classList.remove("is-visible");renderExam();updateClock();examState.timer=setInterval(()=>{examState.remaining--;updateClock();if(examState.remaining<=0)finishExam(true);},1000);showToast("Timed exam started. You have 35 minutes."); };
+    $("#startExam").addEventListener("click",startExam); $("#submitExam").addEventListener("click",()=>{if(examState.started&&!examState.submitted)finishExam(false);});
+    $("#resetExam").addEventListener("click",()=>{if(examState.started&&!examState.submitted&&!confirm("Reset the current exam and clear all answers?"))return;stopExamTimer();examState.started=false;examState.submitted=false;examState.remaining=2100;examState.answers={partA:{},partB:{},partC:{},partD:{}};$("#examStatus").textContent="Exam not started";$("#examResult").textContent="Start the timer when you are ready.";$("#startExam").disabled=false;$("#submitExam").disabled=true;$("#examKey").classList.remove("is-visible");updateClock();renderExam();showToast("Exam worksheet reset.");});
+
+    // Notes and reset
+    const notesTextarea=$("#studyNotes"); try { notesTextarea.value=localStorage.getItem(notesKey)||""; } catch { notesTextarea.value=""; }
+    $("#saveNotes").addEventListener("click",()=>{try{localStorage.setItem(notesKey,notesTextarea.value);$("#noteStatus").textContent="Notes saved locally.";}catch{$("#noteStatus").textContent="Local storage is unavailable.";}setTimeout(()=>$("#noteStatus").textContent="",2600);});
+    $("#downloadNotes").addEventListener("click",()=>{const notes=notesTextarea.value.trim();if(!notes){$("#noteStatus").textContent="Write a note first.";return;}const url=URL.createObjectURL(new Blob([notes],{type:"text/plain;charset=utf-8"}));const link=document.createElement("a");link.href=url;link.download="modal-verbs-study-notes.txt";document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);$("#noteStatus").textContent="Notes downloaded.";setTimeout(()=>$("#noteStatus").textContent="",2600);});
+    $("#resetProgress").addEventListener("click",()=>{if(!confirm("Reset learning-module progress, quiz answers, scenarios, and flashcards?"))return;appState.grammarComplete=false;appState.speakingComplete=false;appState.vocabularyComplete=false;appState.quizAnswers={};appState.practisedScenarios=[];appState.completedExercises=[];appState.exploredCards=[];persistState();renderQuiz();renderScenario(0);renderVocabulary();updateVocabularySummary();updateProgress();showToast("Module progress reset.");});
+
+    const safeInitialize = (label, callback) => {
+      try {
+        callback();
+      } catch (error) {
+        console.error(`${label} initialization failed`, error);
+        showToast(`${label} needs a refresh. The rest of the lesson is still available.`);
+      }
+    };
+
+    safeInitialize("Grammar Lab", renderQuiz);
+    safeInitialize("Speaking Simulator", () => { setupRecognition(); renderScenario(0); });
+    safeInitialize("Vocabulary", () => { renderVocabulary(); updateVocabularySummary(); });
+    safeInitialize("Exam worksheet", () => { renderExam(); updateClock(); });
+    updateProgress();
+  </script>
+</body>
+</html>
